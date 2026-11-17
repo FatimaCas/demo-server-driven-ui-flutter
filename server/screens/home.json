@@ -1,0 +1,262 @@
+{
+  "name": "home",
+  "title": "SDUI Store",
+  "layout": {
+    "type": "column",
+    "crossAxisAlignment": "stretch",
+    "children": [
+      {
+        "type": "container",
+        "margin": 16,
+        "padding": 20,
+        "decoration": {
+          "color": "#3F51B5",
+          "borderRadius": 16
+        },
+        "child": {
+          "type": "column",
+          "crossAxisAlignment": "start",
+          "spacing": 6,
+          "children": [
+            {
+              "type": "text",
+              "data": "Ofertas de la semana",
+              "style": {
+                "fontSize": 22,
+                "fontWeight": "w700",
+                "color": "#FFFFFF"
+              }
+            },
+            {
+              "type": "text",
+              "data": "Hasta 30% en tecnología",
+              "style": {
+                "fontSize": 14,
+                "color": "#E8EAF6"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "padding",
+        "padding": [
+          16,
+          8,
+          16,
+          8
+        ],
+        "child": {
+          "type": "text",
+          "data": "Categorías",
+          "style": {
+            "fontSize": 18,
+            "fontWeight": "w600"
+          }
+        }
+      },
+      {
+        "type": "padding",
+        "padding": [
+          16,
+          0,
+          16,
+          0
+        ],
+        "child": {
+          "type": "wrap",
+          "spacing": 8,
+          "runSpacing": 8,
+          "children": [
+            {
+              "type": "chip",
+              "label": {
+                "type": "text",
+                "data": "Libros"
+              }
+            },
+            {
+              "type": "chip",
+              "label": {
+                "type": "text",
+                "data": "Tecnología"
+              }
+            },
+            {
+              "type": "chip",
+              "label": {
+                "type": "text",
+                "data": "Hogar"
+              }
+            },
+            {
+              "type": "chip",
+              "label": {
+                "type": "text",
+                "data": "Deportes"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "padding",
+        "padding": [
+          16,
+          16,
+          16,
+          8
+        ],
+        "child": {
+          "type": "text",
+          "data": "Destacados",
+          "style": {
+            "fontSize": 18,
+            "fontWeight": "w600"
+          }
+        }
+      },
+      {
+        "type": "gridView",
+        "shrinkWrap": true,
+        "physics": "never",
+        "crossAxisCount": 2,
+        "mainAxisSpacing": 12,
+        "crossAxisSpacing": 12,
+        "childAspectRatio": 0.9,
+        "padding": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "children": [
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "icon",
+                    "icon": "headphones",
+                    "size": 40,
+                    "color": "#3F51B5"
+                  },
+                  {
+                    "type": "text",
+                    "data": "Audífonos BT",
+                    "style": {
+                      "fontWeight": "w600"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "data": "$ 200.900"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "icon",
+                    "icon": "chair",
+                    "size": 40,
+                    "color": "#3F51B5"
+                  },
+                  {
+                    "type": "text",
+                    "data": "Silla ergonómica",
+                    "style": {
+                      "fontWeight": "w600"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "data": "$ 520.000"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "icon",
+                    "icon": "sports_soccer",
+                    "size": 40,
+                    "color": "#3F51B5"
+                  },
+                  {
+                    "type": "text",
+                    "data": "Balón profesional",
+                    "style": {
+                      "fontWeight": "w600"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "data": "$ 99.900"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "icon",
+                    "icon": "watch",
+                    "size": 40,
+                    "color": "#3F51B5"
+                  },
+                  {
+                    "type": "text",
+                    "data": "Reloj inteligente",
+                    "style": {
+                      "fontWeight": "w600"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "data": "$ 349.900"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
