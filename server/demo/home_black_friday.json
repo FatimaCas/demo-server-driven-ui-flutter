@@ -1,0 +1,233 @@
+{
+  "name": "home",
+  "title": "SDUI Store · Black Friday",
+  "layout": {
+    "type": "column",
+    "crossAxisAlignment": "stretch",
+    "children": [
+      {
+        "type": "container",
+        "margin": 16,
+        "padding": 20,
+        "decoration": { "color": "#111111", "borderRadius": 16 },
+        "child": {
+          "type": "column",
+          "crossAxisAlignment": "start",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "row",
+              "spacing": 8,
+              "children": [
+                { "type": "icon", "icon": "bolt", "size": 28, "color": "#FF9800" },
+                {
+                  "type": "expanded",
+                  "child": {
+                    "type": "text",
+                    "data": "BLACK FRIDAY",
+                    "style": { "fontSize": 26, "fontWeight": "w900", "color": "#FF9800", "letterSpacing": 2 }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "data": "Hasta 50% en toda la tienda",
+              "style": { "fontSize": 16, "fontWeight": "w600", "color": "#FFFFFF" }
+            },
+            {
+              "type": "text",
+              "data": "Solo por hoy · termina a medianoche",
+              "style": { "fontSize": 13, "color": "#BDBDBD" }
+            }
+          ]
+        }
+      },
+      {
+        "type": "container",
+        "margin": [16, 0, 16, 8],
+        "padding": 12,
+        "decoration": { "color": "#FFF3E0", "borderRadius": 12 },
+        "child": {
+          "type": "row",
+          "spacing": 10,
+          "children": [
+            { "type": "icon", "icon": "local_shipping", "color": "#E65100" },
+            {
+              "type": "expanded",
+              "child": {
+                "type": "text",
+                "data": "Envío gratis en compras desde $ 100.000",
+                "style": { "fontSize": 14, "fontWeight": "w600", "color": "#E65100" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "padding",
+        "padding": [16, 8, 16, 8],
+        "child": {
+          "type": "text",
+          "data": "Ofertas relámpago",
+          "style": { "fontSize": 18, "fontWeight": "w700" }
+        }
+      },
+      {
+        "type": "gridView",
+        "shrinkWrap": true,
+        "physics": "never",
+        "crossAxisCount": 2,
+        "mainAxisSpacing": 12,
+        "crossAxisSpacing": 12,
+        "childAspectRatio": 0.8,
+        "padding": [16, 0, 16, 8],
+        "children": [
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "row",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      { "type": "icon", "icon": "laptop", "size": 40, "color": "#111111" },
+                      {
+                        "type": "container",
+                        "padding": [8, 2, 8, 2],
+                        "decoration": { "color": "#FF9800", "borderRadius": 8 },
+                        "child": { "type": "text", "data": "-50%", "style": { "fontWeight": "w700", "color": "#FFFFFF" } }
+                      }
+                    ]
+                  },
+                  { "type": "text", "data": "Portátil 14\"", "style": { "fontWeight": "w600" } },
+                  { "type": "text", "data": "$ 3.200.000", "style": { "fontSize": 12, "color": "#9E9E9E", "decoration": "lineThrough" } },
+                  { "type": "text", "data": "$ 1.600.000", "style": { "fontSize": 16, "fontWeight": "w700", "color": "#D32F2F" } }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "row",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      { "type": "icon", "icon": "tv", "size": 40, "color": "#111111" },
+                      {
+                        "type": "container",
+                        "padding": [8, 2, 8, 2],
+                        "decoration": { "color": "#FF9800", "borderRadius": 8 },
+                        "child": { "type": "text", "data": "-40%", "style": { "fontWeight": "w700", "color": "#FFFFFF" } }
+                      }
+                    ]
+                  },
+                  { "type": "text", "data": "Smart TV 55\"", "style": { "fontWeight": "w600" } },
+                  { "type": "text", "data": "$ 2.500.000", "style": { "fontSize": 12, "color": "#9E9E9E", "decoration": "lineThrough" } },
+                  { "type": "text", "data": "$ 1.500.000", "style": { "fontSize": 16, "fontWeight": "w700", "color": "#D32F2F" } }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "row",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      { "type": "icon", "icon": "headphones", "size": 40, "color": "#111111" },
+                      {
+                        "type": "container",
+                        "padding": [8, 2, 8, 2],
+                        "decoration": { "color": "#FF9800", "borderRadius": 8 },
+                        "child": { "type": "text", "data": "-30%", "style": { "fontWeight": "w700", "color": "#FFFFFF" } }
+                      }
+                    ]
+                  },
+                  { "type": "text", "data": "Audífonos BT", "style": { "fontWeight": "w600" } },
+                  { "type": "text", "data": "$ 189.900", "style": { "fontSize": 12, "color": "#9E9E9E", "decoration": "lineThrough" } },
+                  { "type": "text", "data": "$ 132.900", "style": { "fontSize": 16, "fontWeight": "w700", "color": "#D32F2F" } }
+                ]
+              }
+            }
+          },
+          {
+            "type": "card",
+            "child": {
+              "type": "padding",
+              "padding": 12,
+              "child": {
+                "type": "column",
+                "crossAxisAlignment": "start",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "row",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      { "type": "icon", "icon": "sports_esports", "size": 40, "color": "#111111" },
+                      {
+                        "type": "container",
+                        "padding": [8, 2, 8, 2],
+                        "decoration": { "color": "#FF9800", "borderRadius": 8 },
+                        "child": { "type": "text", "data": "-25%", "style": { "fontWeight": "w700", "color": "#FFFFFF" } }
+                      }
+                    ]
+                  },
+                  { "type": "text", "data": "Control gamer", "style": { "fontWeight": "w600" } },
+                  { "type": "text", "data": "$ 280.000", "style": { "fontSize": 12, "color": "#9E9E9E", "decoration": "lineThrough" } },
+                  { "type": "text", "data": "$ 210.000", "style": { "fontSize": 16, "fontWeight": "w700", "color": "#D32F2F" } }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "padding",
+        "padding": [16, 8, 16, 8],
+        "child": {
+          "type": "text",
+          "data": "Categorías en oferta",
+          "style": { "fontSize": 18, "fontWeight": "w700" }
+        }
+      },
+      {
+        "type": "padding",
+        "padding": [16, 0, 16, 24],
+        "child": {
+          "type": "wrap",
+          "spacing": 8,
+          "runSpacing": 8,
+          "children": [
+            { "type": "chip", "label": { "type": "text", "data": "Tecnología -50%" } },
+            { "type": "chip", "label": { "type": "text", "data": "Gaming -25%" } },
+            { "type": "chip", "label": { "type": "text", "data": "Hogar -20%" } }
+          ]
+        }
+      }
+    ]
+  }
+}

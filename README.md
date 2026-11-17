@@ -45,6 +45,25 @@ flutter run
 3. La pantalla cambia. El servidor lee el archivo en cada petición, así que no
    hace falta reiniciarlo.
 
+### Variantes listas para presentar
+
+`server/demo/` guarda pantallas completas para cambiarlas de un golpe. Ese
+directorio no se sirve: hay que copiar la variante sobre `screens/home.json`.
+
+| Archivo | Qué muestra |
+|---|---|
+| `home_normal.json` | el home de siempre (banner azul, categorías, destacados) |
+| `home_black_friday.json` | otro título, banner negro y naranja, franja de envío gratis, productos con descuento y precio tachado, y las secciones en otro orden |
+
+Desde `server/`:
+
+```powershell
+Copy-Item demo/home_black_friday.json screens/home.json   # activar Black Friday
+Copy-Item demo/home_normal.json screens/home.json         # volver al normal
+```
+
+Después de copiar, recarga la app (⟳ o pull-to-refresh).
+
 ## Arquitectura
 
 La misma idea que `r_market`: capas por feature, inyección de dependencias,
@@ -104,4 +123,4 @@ Ninguna habla con el servidor: usan falsos escritos a mano (`test/support/fakes.
 |---|---|
 | `test/unit/home/screen_repository_test.dart` | convertir la respuesta y traducir errores, con fuente falsa |
 | `test/unit/home/home_view_model_test.dart` | carga, error y recarga, con repositorio falso |
-| `test/widget/home/home_page_test.dart` | que la página pinta el JSON, recarga y muestra errores; además valida que `server/screens/home.json` se renderice sin errores |
+| `test/widget/home/home_page_test.dart` | que la página pinta el JSON, recarga y muestra errores; además pinta cada JSON de `server/screens/` y `server/demo/` en tamaño teléfono y falla si hay un widget de error de Stac o un desborde |

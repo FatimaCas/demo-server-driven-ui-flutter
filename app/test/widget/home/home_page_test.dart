@@ -56,20 +56,37 @@ void main() {
     expect(find.text('Reintentar'), findsOneWidget);
   });
 
-  testWidgets('el home.json del servidor se renderiza con Stac', (tester) async {
-    final raw = jsonDecode(File('../server/screens/home.json').readAsStringSync())
-        as Map<String, dynamic>;
-    final screen = ServerScreen(
-      name: 'home',
-      title: raw['title'] as String,
-      layout: raw['layout'] as Map<String, dynamic>,
-    );
+  // Cada JSON del servidor (el activo y las variantes de la presentación) se
+  // pinta en tamaño teléfono sin widgets de error de Stac ni desbordes.
+  final serverJsons = [
+    ...Directory('../server/screens').listSync(),
+    ...Directory('../server/demo').listSync(),
+  ].whereType<File>().where((f) => f.path.endsWith('.json'));
 
-    await pumpHome(tester, FakeScreenRepository([screen]));
+  for (final file in serverJsons) {
+    testWidgets('Stac renderiza ${file.uri.pathSegments.last}', (tester) async {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
 
-    expect(find.text('Ofertas de la semana'), findsOneWidget);
-    expect(find.text('Categorías'), findsOneWidget);
-    expect(find.byType(Card), findsWidgets);
-    expect(tester.takeException(), isNull);
-  });
+      final raw = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+      final screen = ServerScreen(
+        name: raw['name'] as String,
+        title: raw['title'] as String,
+        layout: raw['layout'] as Map<String, dynamic>,
+      );
+
+      await pumpHome(tester, FakeScreenRepository([screen]));
+
+      expect(find.text(screen.title), findsOneWidget);
+      expect(find.byType(Card), findsWidgets);
+      expect(
+        find.byWidgetPredicate(
+          (w) => w.runtimeType.toString() == 'StacErrorWidget',
+        ),
+        findsNothing,
+      );
+      expect(tester.takeException(), isNull);
+    });
+  }
 }
