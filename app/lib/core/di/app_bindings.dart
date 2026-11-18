@@ -18,7 +18,10 @@ class AppBindings extends Bindings {
   @override
   void dependencies() {
     Get.put<IScreenDataSource>(switch (config.dataSource) {
-      DataSourceMode.remote => ScreenRemoteDataSource(baseUrl: config.serverUrl),
+      DataSourceMode.remote => ScreenRemoteDataSource(
+        baseUrl: config.serverUrl,
+        clientVersion: config.vocabulary,
+      ),
       DataSourceMode.local => ScreenLocalDataSource(),
     });
     Get.put<IScreenRepository>(ScreenRepository(Get.find()));
