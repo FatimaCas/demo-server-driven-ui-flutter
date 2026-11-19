@@ -6,10 +6,18 @@ import 'screen_data_source.dart';
 
 /// Pide las pantallas al servidor shelf: `GET <baseUrl>/screens/<name>`.
 class ScreenRemoteDataSource implements IScreenDataSource {
-  ScreenRemoteDataSource({required this.baseUrl, http.Client? client})
+  ScreenRemoteDataSource({
+    required this.baseUrl,
+    this.clientVersion = 1,
+    http.Client? client,
+  })
       : _client = client ?? http.Client();
 
   final String baseUrl;
+
+  /// Versión del vocabulario de widgets de la app; el servidor la usa para
+  /// no mandar widgets que esta versión no sabe dibujar.
+  final int clientVersion;
   final http.Client _client;
 
   @override
@@ -17,7 +25,10 @@ class ScreenRemoteDataSource implements IScreenDataSource {
     final http.Response response;
     try {
       response = await _client
-          .get(Uri.parse('$baseUrl/screens/$name'))
+          .get(
+            Uri.parse('$baseUrl/screens/$name'),
+            headers: {'x-client-version': '$clientVersion'},
+          )
           .timeout(const Duration(seconds: 5));
     } catch (e) {
       throw ScreenSourceException('No se pudo contactar a $baseUrl ($e)');

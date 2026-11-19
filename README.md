@@ -1,13 +1,15 @@
+https://youtu.be/Acr4Ju7fLS4
+
 # demo-server-driven-ui-flutter
 
 Demo de **Server-Driven UI** en Flutter con [Stac](https://stac.dev). Es una
 tienda cuyo home (banner, categorías y productos destacados) lo describe el
-servidor en JSON. Cambias el JSON, recargas la app y la pantalla cambia sin
+servidor en JSON. Cambias los datos, recargas la app y la pantalla cambia sin
 recompilar ni publicar una versión nueva.
 
 ```
 app/      la app Flutter (GetX + Stac), arquitectura limpia por feature
-server/   un servidor shelf en Dart que entrega las pantallas
+server/   un servidor shelf en Dart + SQLite que arma las pantallas
 ```
 
 ## Cómo correrlo
@@ -39,30 +41,39 @@ flutter run
 
 ## El truco de la demo
 
-1. Con la app abierta, edita `server/screens/home.json`: cambia el texto o el
-   color del banner, reordena secciones o quita un producto.
-2. En la app, haz *pull-to-refresh* o toca el botón ⟳.
-3. La pantalla cambia. El servidor lee el archivo en cada petición, así que no
-   hace falta reiniciarlo.
+Los productos viven en SQLite (`server/data/store.db`, se crea sola la primera
+vez). El servidor la consulta en cada petición y arma el JSON de Stac.
 
-### Variantes listas para presentar
-
-`server/demo/` guarda pantallas completas para cambiarlas de un golpe. Ese
-directorio no se sirve: hay que copiar la variante sobre `screens/home.json`.
-
-| Archivo | Qué muestra |
-|---|---|
-| `home_normal.json` | el home de siempre (banner azul, categorías, destacados) |
-| `home_black_friday.json` | otro título, banner negro y naranja, franja de envío gratis, productos con descuento y precio tachado, y las secciones en otro orden |
-
-Desde `server/`:
-
-```powershell
-Copy-Item demo/home_black_friday.json screens/home.json   # activar Black Friday
-Copy-Item demo/home_normal.json screens/home.json         # volver al normal
+```bash
+cd server
+sqlite3 data/store.db "UPDATE products SET price = 150000 WHERE name = 'Audífonos BT'"
+sqlite3 data/store.db "UPDATE settings SET value = '1' WHERE key = 'black_friday'"   # '0' para volver
 ```
 
-Después de copiar, recarga la app (⟳ o pull-to-refresh).
+Recarga la app (⟳ o pull-to-refresh) y la pantalla cambia sin recompilar.
+
+### Widget propio: `productCard`
+
+El servidor manda `{"type": "productCard", "name": ..., "price": ...}` y la app lo
+dibuja con un parser propio (`app/lib/features/home/presentation/stac/product_card.dart`)
+registrado en `Stac.initialize(parsers: [...])`.
+
+### Versionado mínimo
+
+El parser viaja *compilado* en la app: el JSON solo compone con el vocabulario
+que la app ya trae. Por eso la app manda el header `x-client-version` y, si es
+menor que 2, el servidor entrega la misma tarjeta con widgets básicos de Stac.
+
+```bash
+flutter run                              # vocabulario 2: usa productCard
+flutter run --dart-define=VOCABULARY=1   # simula la app vieja (sin parser)
+```
+
+### Pantallas de muestra
+
+`dart run bin/export_demo.dart` (en `server/`) escribe en `server/demo/` lo que
+el servidor entrega con los datos iniciales: `home_normal`, `home_black_friday`
+y `home_app_v1`. Las pruebas de la app las pintan.
 
 ## Arquitectura
 
@@ -123,4 +134,4 @@ Ninguna habla con el servidor: usan falsos escritos a mano (`test/support/fakes.
 |---|---|
 | `test/unit/home/screen_repository_test.dart` | convertir la respuesta y traducir errores, con fuente falsa |
 | `test/unit/home/home_view_model_test.dart` | carga, error y recarga, con repositorio falso |
-| `test/widget/home/home_page_test.dart` | que la página pinta el JSON, recarga y muestra errores; además pinta cada JSON de `server/screens/` y `server/demo/` en tamaño teléfono y falla si hay un widget de error de Stac o un desborde |
+| `test/widget/home/home_page_test.dart` | que la página pinta el JSON, recarga y muestra errores; además pinta cada JSON de `server/demo/` en tamaño teléfono y falla si hay un widget de error de Stac o un desborde |

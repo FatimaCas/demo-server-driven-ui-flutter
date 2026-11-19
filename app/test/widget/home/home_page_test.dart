@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sdui_store/features/home/domain/entities/server_screen.dart';
 import 'package:sdui_store/features/home/domain/failures/screen_failure.dart';
 import 'package:sdui_store/features/home/presentation/pages/home_page.dart';
+import 'package:sdui_store/features/home/presentation/stac/product_card.dart';
 import 'package:sdui_store/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:stac/stac.dart';
 
@@ -19,7 +20,9 @@ Future<void> pumpHome(WidgetTester tester, FakeScreenRepository repo) async {
 }
 
 void main() {
-  setUpAll(() => Stac.initialize());
+  setUpAll(
+    () => Stac.initialize(parsers: const [ProductCardParser()]),
+  );
   tearDown(Get.reset);
 
   testWidgets('pinta lo que manda el servidor', (tester) async {
@@ -56,12 +59,37 @@ void main() {
     expect(find.text('Reintentar'), findsOneWidget);
   });
 
-  // Cada JSON del servidor (el activo y las variantes de la presentación) se
-  // pinta en tamaño teléfono sin widgets de error de Stac ni desbordes.
-  final serverJsons = [
-    ...Directory('../server/screens').listSync(),
-    ...Directory('../server/demo').listSync(),
-  ].whereType<File>().where((f) => f.path.endsWith('.json'));
+  testWidgets('productCard muestra nombre, precio y precio tachado', (
+    tester,
+  ) async {
+    final screen = ServerScreen(
+      name: 'home',
+      title: 'Tienda',
+      // La tarjeta se estira dentro de la grilla; aquí le damos alto fijo.
+      layout: {
+        'type': 'sizedBox',
+        'height': 200,
+        'child': {
+          'type': 'productCard',
+          'name': 'Audífonos BT',
+          'icon': 'headphones',
+          'price': r'$ 200.900',
+          'oldPrice': r'$ 299.900',
+        },
+      },
+    );
+    await pumpHome(tester, FakeScreenRepository([screen]));
+
+    expect(find.text('Audífonos BT'), findsOneWidget);
+    expect(find.text(r'$ 200.900'), findsOneWidget);
+    final old = tester.widget<Text>(find.text(r'$ 299.900'));
+    expect(old.style?.decoration, TextDecoration.lineThrough);
+  });
+
+  // Cada JSON que arma el servidor (`dart run bin/export_demo.dart` en
+  // `server/`) se pinta en tamaño teléfono sin widgets de error de Stac ni
+  // desbordes.
+  final serverJsons = Directory('../server/demo').listSync().whereType<File>().where((f) => f.path.endsWith('.json'));
 
   for (final file in serverJsons) {
     testWidgets('Stac renderiza ${file.uri.pathSegments.last}', (tester) async {

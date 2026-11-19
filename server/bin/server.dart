@@ -1,30 +1,33 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
+import 'package:sdui_server/home_screen.dart';
+import 'package:sdui_server/store_db.dart';
 
-/// Entrega `screens/<name>.json` en `GET /screens/<name>`.
+/// Entrega las pantallas en `GET /screens/<name>`.
 ///
-/// El archivo se lee en cada petición: edítalo, recarga la app y el cambio
-/// aparece sin reiniciar el servidor.
+/// Los productos salen de SQLite (`data/store.db`) en cada petición: cambia
+/// una fila, recarga la app y la pantalla cambia sin reiniciar el servidor.
+/// El header `x-client-version` dice qué widgets propios conoce la app.
 Future<void> main(List<String> args) async {
   final port = int.tryParse(Platform.environment['PORT'] ?? '') ?? 8080;
-  final screensDir = Directory.fromUri(Platform.script.resolve('../screens/'));
+  final dbFile = File.fromUri(Platform.script.resolve('../data/store.db'));
+  await dbFile.parent.create(recursive: true);
+  final db = StoreDb.open(dbFile.path);
 
   final router = Router()
     ..get('/health', (Request _) => Response.ok('ok'))
-    ..get('/screens/<name>', (Request _, String name) async {
-      // Solo nombres simples: nada de "../" para salir de la carpeta.
-      if (!RegExp(r'^[a-z0-9_-]+$').hasMatch(name)) {
-        return Response.badRequest(body: 'Nombre inválido');
-      }
-      final file = File('${screensDir.path}$name.json');
-      if (!await file.exists()) {
+    ..get('/screens/<name>', (Request request, String name) {
+      if (name != 'home') {
         return Response.notFound('No existe la pantalla "$name"');
       }
+      final version = int.tryParse(request.headers['x-client-version'] ?? '');
+      final screen = buildHome(db, clientVersion: version ?? 1);
       return Response.ok(
-        await file.readAsString(),
+        jsonEncode(screen),
         headers: {'content-type': 'application/json; charset=utf-8'},
       );
     });
@@ -36,7 +39,7 @@ Future<void> main(List<String> args) async {
 
   final server = await io.serve(handler, InternetAddress.anyIPv4, port);
   print('Servidor SDUI en http://localhost:${server.port}');
-  print('Pantallas en ${screensDir.path}');
+  print('Base de datos en ${dbFile.path}');
 }
 
 /// Permite que la app corriendo en Chrome (`flutter run -d chrome`) haga fetch.

@@ -48,67 +48,6 @@
         ],
         "child": {
           "type": "text",
-          "data": "Categorías",
-          "style": {
-            "fontSize": 18,
-            "fontWeight": "w600"
-          }
-        }
-      },
-      {
-        "type": "padding",
-        "padding": [
-          16,
-          0,
-          16,
-          0
-        ],
-        "child": {
-          "type": "wrap",
-          "spacing": 8,
-          "runSpacing": 8,
-          "children": [
-            {
-              "type": "chip",
-              "label": {
-                "type": "text",
-                "data": "Libros"
-              }
-            },
-            {
-              "type": "chip",
-              "label": {
-                "type": "text",
-                "data": "Tecnología"
-              }
-            },
-            {
-              "type": "chip",
-              "label": {
-                "type": "text",
-                "data": "Hogar"
-              }
-            },
-            {
-              "type": "chip",
-              "label": {
-                "type": "text",
-                "data": "Deportes"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "padding",
-        "padding": [
-          16,
-          16,
-          16,
-          8
-        ],
-        "child": {
-          "type": "text",
           "data": "Destacados",
           "style": {
             "fontSize": 18,
@@ -123,7 +62,7 @@
         "crossAxisCount": 2,
         "mainAxisSpacing": 12,
         "crossAxisSpacing": 12,
-        "childAspectRatio": 0.9,
+        "childAspectRatio": 0.8,
         "padding": [
           16,
           0,
@@ -132,128 +71,28 @@
         ],
         "children": [
           {
-            "type": "card",
-            "child": {
-              "type": "padding",
-              "padding": 12,
-              "child": {
-                "type": "column",
-                "crossAxisAlignment": "start",
-                "spacing": 6,
-                "children": [
-                  {
-                    "type": "icon",
-                    "icon": "headphones",
-                    "size": 40,
-                    "color": "#3F51B5"
-                  },
-                  {
-                    "type": "text",
-                    "data": "Audífonos BT",
-                    "style": {
-                      "fontWeight": "w600"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "data": "$ 200.900"
-                  }
-                ]
-              }
-            }
+            "type": "productCard",
+            "name": "Audífonos BT",
+            "icon": "headphones",
+            "price": "$ 200.900"
           },
           {
-            "type": "card",
-            "child": {
-              "type": "padding",
-              "padding": 12,
-              "child": {
-                "type": "column",
-                "crossAxisAlignment": "start",
-                "spacing": 6,
-                "children": [
-                  {
-                    "type": "icon",
-                    "icon": "chair",
-                    "size": 40,
-                    "color": "#3F51B5"
-                  },
-                  {
-                    "type": "text",
-                    "data": "Silla ergonómica",
-                    "style": {
-                      "fontWeight": "w600"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "data": "$ 520.000"
-                  }
-                ]
-              }
-            }
+            "type": "productCard",
+            "name": "Silla ergonómica",
+            "icon": "chair",
+            "price": "$ 520.000"
           },
           {
-            "type": "card",
-            "child": {
-              "type": "padding",
-              "padding": 12,
-              "child": {
-                "type": "column",
-                "crossAxisAlignment": "start",
-                "spacing": 6,
-                "children": [
-                  {
-                    "type": "icon",
-                    "icon": "sports_soccer",
-                    "size": 40,
-                    "color": "#3F51B5"
-                  },
-                  {
-                    "type": "text",
-                    "data": "Balón profesional",
-                    "style": {
-                      "fontWeight": "w600"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "data": "$ 99.900"
-                  }
-                ]
-              }
-            }
+            "type": "productCard",
+            "name": "Balón profesional",
+            "icon": "sports_soccer",
+            "price": "$ 99.900"
           },
           {
-            "type": "card",
-            "child": {
-              "type": "padding",
-              "padding": 12,
-              "child": {
-                "type": "column",
-                "crossAxisAlignment": "start",
-                "spacing": 6,
-                "children": [
-                  {
-                    "type": "icon",
-                    "icon": "watch",
-                    "size": 40,
-                    "color": "#3F51B5"
-                  },
-                  {
-                    "type": "text",
-                    "data": "Reloj inteligente",
-                    "style": {
-                      "fontWeight": "w600"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "data": "$ 349.900"
-                  }
-                ]
-              }
-            }
+            "type": "productCard",
+            "name": "Reloj inteligente",
+            "icon": "watch",
+            "price": "$ 349.900"
           }
         ]
       }
